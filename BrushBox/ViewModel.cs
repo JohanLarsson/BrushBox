@@ -11,10 +11,18 @@
         public ViewModel()
         {
             Brush = Brushes.HotPink;
+            ChangeColorCommand = new RelayCommand(_ =>
+            {
+                Brush = Equals(Brush, Brushes.HotPink) 
+                    ? Brushes.Blue 
+                    : Brushes.HotPink;
+            });
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public RelayCommand ChangeColorCommand { get; private set; }
+        
         public SolidColorBrush Brush
         {
             get { return _brush; }
@@ -28,6 +36,7 @@
                 OnPropertyChanged();
             }
         }
+
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
