@@ -1,6 +1,8 @@
 ﻿namespace BrushBox
 {
+    using System;
     using System.ComponentModel;
+    using System.Linq;
     using System.Runtime.CompilerServices;
     using System.Windows.Media;
     using Annotations;
@@ -15,16 +17,23 @@
             SomeText = "Text";
             ChangeColorCommand = new RelayCommand(_ =>
             {
-                Brush = Equals(Brush, Brushes.HotPink) 
-                    ? Brushes.Blue 
+                Brush = Equals(Brush, Brushes.HotPink)
+                    ? Brushes.Blue
                     : Brushes.HotPink;
             });
+
+            var ints = new int[] { 1, 2, 3, 4 };
+            int[] array = ints.Where(x => x % 2 == 0)
+                              .Select(x => x * 100)
+                              .ToArray();
+            int i1 = EvaluateLambda(x => x * x, 2);
+            int i2 = EvaluateLambda(x => x + 5, 2);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public RelayCommand ChangeColorCommand { get; private set; }
-        
+
         public SolidColorBrush Brush
         {
             get { return _brush; }
@@ -51,6 +60,12 @@
                 _someText = value;
                 OnPropertyChanged();
             }
+        }
+
+        private int EvaluateLambda(Func<int, int> func, int i)
+        {
+            int result = func(i);
+            return result;
         }
 
         [NotifyPropertyChangedInvocator]
