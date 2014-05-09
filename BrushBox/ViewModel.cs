@@ -8,9 +8,11 @@
     public class ViewModel : INotifyPropertyChanged
     {
         private SolidColorBrush _brush;
+        private string _someText;
         public ViewModel()
         {
             Brush = Brushes.HotPink;
+            SomeText = "Text";
             ChangeColorCommand = new RelayCommand(_ =>
             {
                 Brush = Equals(Brush, Brushes.HotPink) 
@@ -33,6 +35,20 @@
                     return;
                 }
                 _brush = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string SomeText
+        {
+            get { return _someText; }
+            set
+            {
+                if (value == _someText)
+                {
+                    return;
+                }
+                _someText = value;
                 OnPropertyChanged();
             }
         }
