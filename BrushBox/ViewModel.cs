@@ -27,7 +27,8 @@
                               .Select(x => x * 100)
                               .ToArray();
             int i1 = EvaluateLambda(x => x * x, 2);
-            int i2 = EvaluateLambda(x => x + 5, 2);
+            int i2 = EvaluateLambda(TheLongWayWhenNotUsingLambda, 2);
+            int i3 = EvaluateLambda(x => x + 5, 2);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -66,6 +67,11 @@
         {
             int result = func(i);
             return result;
+        }
+
+        private int TheLongWayWhenNotUsingLambda(int i)
+        {
+            return i * i;
         }
 
         [NotifyPropertyChangedInvocator]
